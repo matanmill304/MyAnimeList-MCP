@@ -1,0 +1,9 @@
+# Copy to .dev.vars for local `wrangler dev`. Never commit .dev.vars.
+# Register an app at https://myanimelist.net/apiconfig with:
+#   App Type:     web
+#   Redirect URI: http://localhost:8787/callback/mal
+MAL_CLIENT_ID=your_client_id_here
+MAL_CLIENT_SECRET=your_client_secret_here
+
+# Local dev overrides the deployed PUBLIC_URL so the MAL redirect URI matches.
+PUBLIC_URL=http://localhost:8787

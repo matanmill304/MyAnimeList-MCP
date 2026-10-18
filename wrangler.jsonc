@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mal-connector",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "observability": { "enabled": true },
+
+  // The OAuth authorization server's storage: clients, grants, codes and
+  // encrypted upstream tokens. Create with:
+  //   npx wrangler kv namespace create OAUTH_KV
+  // then paste the id below.
+  "kv_namespaces": [
+    { "binding": "OAUTH_KV", "id": "PLACEHOLDER_RUN_WRANGLER_KV_NAMESPACE_CREATE" }
+  ],
+
+  "vars": {
+    // The public origin this Worker is served from. Must match the URL you
+    // register with MyAnimeList and submit to the Claude directory.
+    "PUBLIC_URL": "https://mal-connector.example.workers.dev",
+    "CATALOG_BASE_URL": "https://api.tenrai.org/v1"
+  }
+
+  // Secrets (set with `npx wrangler secret put <NAME>`, never committed):
+  //   MAL_CLIENT_ID     — from https://myanimelist.net/apiconfig, app type "web"
+  //   MAL_CLIENT_SECRET — same place
+}

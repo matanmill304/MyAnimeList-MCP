@@ -1,0 +1,23 @@
+{
+  "name": "mal-connector",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MyAnimeList remote MCP connector for Claude — OAuth-brokered list management plus catalog discovery",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "inspector": "npx @modelcontextprotocol/inspector"
+  },
+  "dependencies": {
+    "@cloudflare/workers-oauth-provider": "1.2.3",
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261018.1",
+    "typescript": "5.9.3",
+    "wrangler": "4.151.1"
+  }
+}
