@@ -117,15 +117,31 @@ export class MalClient {
     return (await res.json()) as T;
   }
 
-  /** The signed-in user's profile and anime watch statistics. Anime-only: the API has no manga equivalent. */
-  getMyProfile(): Promise<{
+  /**
+   * The signed-in user's profile and anime watch statistics. Anime-only: the
+   * API has no manga equivalent.
+   *
+   * MyAnimeList returns `birthday` whether or not it was asked for, so the
+   * response is narrowed to the fields we actually requested. There is no
+   * reason to hand a date of birth to a model that has no use for it.
+   */
+  async getMyProfile(): Promise<{
     id: number;
     name: string;
     location?: string;
     joined_at?: string;
     anime_statistics?: Record<string, number>;
   }> {
-    return this.request("/users/@me?fields=id,name,location,joined_at,anime_statistics");
+    const raw = await this.request<Record<string, unknown>>(
+      "/users/@me?fields=id,name,location,joined_at,anime_statistics",
+    );
+    return {
+      id: raw.id as number,
+      name: raw.name as string,
+      location: (raw.location as string) || undefined,
+      joined_at: raw.joined_at as string | undefined,
+      anime_statistics: raw.anime_statistics as Record<string, number> | undefined,
+    };
   }
 
   /** A page of the signed-in user's own list, with enough node detail to reason about taste. */
